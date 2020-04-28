@@ -50,8 +50,7 @@ def install_openresty( ):
     #configure && compile && install openresty
     print('### configure openresty ...')
     os.chdir( openresty_pkg.replace('.tar.gz','') )
-    exec_sys_cmd( './configure --prefix=/opt/verynginx/openresty --user=nginx --group=nginx --with-http_v2_module --with-http_sub_module --with-http_stub_status_module --with-luajit' )
-    
+    exec_sys_cmd( './configure --prefix=/opt/verynginx/openresty --user=nginx --group=nginx --with-http_v2_module --with-http_sub_module --with-http_stub_status_module --with-luajit --with-http_gzip_static_module --with-http_realip_module --with-http_flv_module --with-http_mp4_module --with-http_geoip_module' )
     print('### compile openresty ...')
     exec_sys_cmd( 'make' )
     
@@ -74,7 +73,7 @@ def install_verynginx():
     if os.path.exists('/opt/verynginx/') == False:
         exec_sys_cmd( 'mkdir -p /opt/verynginx' )
     
-    exec_sys_cmd( 'cp -r -f ./verynginx /opt/verynginx' )
+    exec_sys_cmd('cd /opt/tmp/VeryNginx && git pull && cp -r -f ./verynginx /opt/verynginx')
 
     #copy nginx config file to openresty
     if os.path.exists('/opt/verynginx/openresty') == True:
